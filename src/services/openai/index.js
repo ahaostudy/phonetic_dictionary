@@ -1,13 +1,13 @@
 import { post } from '../api/index.js'
 
-export function speechAPI(baseUrl, apiKey, input, speed) {
+export function speechAPI(baseUrl, apiKey, input, speed, voice) {
   return post(baseUrl + '/v1/audio/speech',
     {
       model: 'tts-1',
-      voice: 'alloy',
       response_format: 'mp3',
       input,
-      speed
+      speed,
+      voice
     },
     {
       headers: {
