@@ -53,6 +53,13 @@ function removeWordCache(word) {
   localStorage.setItem('word_cache', JSON.stringify(Array.from(wordCache)))
 }
 
+function clearHistoryCaches() {
+  for (let w of wordCache)
+    localStorage.removeItem('word:' + w)
+  wordCache.clear()
+  localStorage.removeItem('word_cache')
+}
+
 const wordCacheData = computed(() => {
   const wordData = []
   for (let w of wordCache) {
@@ -341,6 +348,17 @@ function showHistory() {
             <a-radio :value="false">False</a-radio>
           </a-radio-group>
         </div>
+        <div class="settings-form-item settings-form-item-clear-history-caches">
+          <div class="settings-form-item-label">Clear Caches</div>
+          <a-popconfirm
+            @ok="clearHistoryCaches"
+            ok-text="Confirm"
+            cancel-text="Cancel"
+            content="Are you sure you want to clear all history caches?"
+          >
+            <a-button>Clear History Caches</a-button>
+          </a-popconfirm>
+        </div>
       </div>
     </a-modal>
     <a-modal
@@ -616,6 +634,14 @@ function showHistory() {
             align-items: center;
           }
         }
+      }
+    }
+
+    .settings-form-item-clear-history-caches {
+      .arco-btn {
+        color: var(--color-text-4);
+        background-color: var(--color-border-1);
+        width: 15em;
       }
     }
   }
